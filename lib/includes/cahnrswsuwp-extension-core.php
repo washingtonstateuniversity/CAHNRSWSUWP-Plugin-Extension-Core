@@ -67,6 +67,12 @@ class CAHNRSWSUWP_Extension_Core {
 		// Adds County programs shortcode
 		require_once ecore_get_plugin_path( '/lib/shortcodes/county-programs/county-programs-shortcode.php' );
 
+		// Adds County Contact shortcode
+		require_once ecore_get_plugin_path( '/lib/shortcodes/county-contact-info/county-contact-shortcode.php' );
+
+		// Adds Site Search shortcode
+		require_once ecore_get_plugin_path( '/lib/shortcodes/county-site-search/county-site-search-shortcode.php' );
+
 	} // end add_post_types
 
 
