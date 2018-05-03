@@ -6,27 +6,27 @@ if ( ! defined( 'WPINC' ) ) {
 } // End if
 
 /*
-* @desc Class to handle County_Social_Media Shortcode
+* @desc Class to handle County_Slideshow_Shortcode Shortcode
 * @since 3.0.0
 */
-class County_Social_Media_Shortcode {
+class County_Slideshow_Shortcode {
 
 	protected $prefix = '';
 
 	// @var array $default_settings Array of default settings
 	protected $default_settings = array(
-		'source'     => '',
-		'url'        => '',
-		'fb_height'  => '',
-		'user'       => '',
-		'widget_id'  => '',
-		't_height'   => '',
+		'source'          => '',
+		'post_type'       => '',
+		'taxonomy'        => '',
+		'terms'           => '',
+		'posts_per_page'  => '',
+
 	);
 
 
 	public function __construct() {
 
-		$core_setting = get_theme_mod( 'extension_core_county_social', '' );
+		$core_setting = get_theme_mod( 'extension_core_county_slideshow', '' );
 
 		if ( ! empty( $core_setting ) ) {
 
@@ -43,7 +43,7 @@ class County_Social_Media_Shortcode {
 	*/
 	public function register_shortcode() {
 
-		\add_shortcode( 'county_social_media_feed', array( $this, 'get_rendered_shortcode' ) );
+		\add_shortcode( 'county_slideshow', array( $this, 'get_rendered_shortcode' ) );
 
 		/*$default_atts = apply_filters( 'cpb_shortcode_default_atts', $this->default_settings, array(), 'section' );
 
@@ -81,15 +81,24 @@ class County_Social_Media_Shortcode {
 
 		$shortcode_args = array();
 
-		if ( 'facebook' === $atts['source'] ) {
+		foreach ( $atts as $key => $value ) {
 
-			$shortcode_args[] = 'facebook="' . $atts['url'] . '"';
+			switch ( $key ) {
 
-			$shortcode_args[] = 'height="' . $atts['fb_height'] . '"';
+				case 'source':
+					$shortcode_args[] = 'slide_type="feed"';
+					break;
+				case 'posts_per_page':
+					$shortcode_args[] = 'count="' . $value . '"';
+					break;
+				default:
+					$shortcode_args[] = $key . '="' . $value . '"';
+					break;
 
-		} // End if
+			} // End switch
+		} // End foreach
 
-		$shortcode = '[social ' . implode( ' ', $shortcode_args ) . ' ]';
+		$shortcode = '[slideshow][slide  ' . implode( ' ', $shortcode_args ) . ' ][/slideshow]';
 
 		$html .= do_shortcode( $shortcode );
 
@@ -115,6 +124,6 @@ class County_Social_Media_Shortcode {
 
 	} // End get_shortcode_form
 
-} // End County_Social_Media
+} // End County_Slideshow_Shortcode
 
-$cpb_shortcode_county_social_media = new County_Social_Media_Shortcode();
+$cpb_shortcode_county_slideshow = new County_Slideshow_Shortcode();

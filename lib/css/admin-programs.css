@@ -1,0 +1,32 @@
+.county-program-contact {
+    background: #fff;
+    border: 1px solid #ccc;
+}
+.county-program-contact h2 {
+    border-bottom: 1px solid #ccc;
+    text-transform: uppercase;
+}
+.county-program-icon-wrapper {
+    width: 250px;
+    float:right;
+    padding: 16px;
+    box-sizing: border-box;
+}
+.county-program-icon-wrapper select {
+    width: 100%;
+}
+.county-program-contact-wrapper {
+    margin-right: 265px;
+    padding: 16px;
+    box-sizing: border-box;
+    border-right: 1px solid #eee;
+}
+.county-program-field {
+    padding-bottom: 12px;
+}
+.county-program-field.half {
+    display: inline-block;
+    width: 48%;
+    margin-right: 1%;
+    vertical-align: top;
+}

@@ -40,7 +40,7 @@ function ecore_get_plugin_url( $path = '' ) {
 *
 * @return string Plugin version
 */
-function ecore_get_plugin_version( $path = '' ) {
+function ecore_get_plugin_version() {
 
 	return CAHNRSWSUWPEXTENSIONCOREVERSION;
 

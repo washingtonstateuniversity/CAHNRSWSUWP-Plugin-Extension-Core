@@ -30,9 +30,15 @@ class County_Programs_Shortcode {
 
 	public function __construct() {
 
-		\add_action( 'init', array( $this, 'register_shortcode' ) );
+		$core_setting = get_theme_mod( 'extension_core_county_programs', '' );
 
-		\add_filter( 'cpb_shortcodes', array( $this, 'register_cpb_shortcode' ) );
+		if ( ! empty( $core_setting ) ) {
+
+			\add_action( 'init', array( $this, 'register_shortcode' ) );
+
+			\add_filter( 'cpb_shortcodes', array( $this, 'register_cpb_shortcode' ) );
+
+		} // End if
 
 	} // End __construct
 

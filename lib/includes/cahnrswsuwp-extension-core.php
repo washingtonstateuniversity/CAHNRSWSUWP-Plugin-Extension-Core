@@ -38,7 +38,7 @@ class CAHNRSWSUWP_Extension_Core {
 
 		$this->add_shortcodes();
 
-		$this->add_customizer();
+		$this->add_theme_parts();
 
 	} // End init_plugin
 
@@ -73,17 +73,26 @@ class CAHNRSWSUWP_Extension_Core {
 		// Adds Site Search shortcode
 		require_once ecore_get_plugin_path( '/lib/shortcodes/county-site-search/county-site-search-shortcode.php' );
 
+		// Adds Site Search shortcode
+		require_once ecore_get_plugin_path( '/lib/shortcodes/county-slideshow/county-slideshow-shortcode.php' );
+
 	} // end add_post_types
 
 
 	/*
-	* @desc Add customizer to WordPress
+	* @desc Add templates to WordPress
 	* @since 0.0.1
 	*/
-	protected function add_customizer() {
+	protected function add_theme_parts() {
 
 		// Adds customizer settings
-		//require_once core_get_plugin_path( '/lib/includes/customizer.php' );
+		require_once ecore_get_plugin_path( '/lib/includes/include-county-customizer.php' );
+
+		// Adds programs settings
+		require_once ecore_get_plugin_path( '/lib/includes/include-county-programs.php' );
+
+		// Adds scripts
+		require_once ecore_get_plugin_path( '/lib/includes/include-county-scripts.php' );
 
 	} // end add_post_types
 
