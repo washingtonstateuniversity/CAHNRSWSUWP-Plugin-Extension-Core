@@ -17,6 +17,7 @@ class County_Contact_Shortcode {
 	protected $default_settings = array(
 		'show_map'     => '',
 		'map_address'  => '',
+		'content'      => '',
 	);
 
 
@@ -29,6 +30,8 @@ class County_Contact_Shortcode {
 			\add_action( 'init', array( $this, 'register_shortcode' ) );
 
 			\add_filter( 'cpb_shortcodes', array( $this, 'register_cpb_shortcode' ) );
+
+			\add_filter( 'cpb_to_shortcode', array( $this, 'cpb_to_shortcode' ) );
 
 		} // End if
 
@@ -115,7 +118,7 @@ class County_Contact_Shortcode {
 				$marker_desc = '<div>' . $address . '<br />' . $locality . '<br />' . $zip_code . '</div><div>' . wpautop( wp_kses_post( $content ) ) . '</div>';
 
 				$map_data = array(
-					'address' => ( ! empty( $atts[ 'map_address' ] ) ) ? $atts['map_address'] : $map_address,
+					'address' => ( ! empty( $atts['map_address'] ) ) ? $atts['map_address'] : $map_address,
 					'title'   => esc_html( spine_get_option( 'contact_department' ) ),
 					'desc'    => $marker_desc,
 					//'zoom'    => 15,
@@ -153,11 +156,40 @@ class County_Contact_Shortcode {
 
 		$form_html .= $cpb_form->text_field( \CAHNRSWP\Plugin\Pagebuilder\cpb_get_input_name( $id, true, 'map_address' ), $settings['map_address'], 'Map Address' );
 
+		$form_html .= $cpb_form->text_field( \CAHNRSWP\Plugin\Pagebuilder\cpb_get_input_name( $id, true, 'map_address' ), $settings['map_address'], 'Map Address' );
+
+		$form_html .= $cpb_form->textarea_field( \CAHNRSWP\Plugin\Pagebuilder\cpb_get_input_name( $id, true, 'content' ), $settings['content'], 'Additional Content', 'cpb-full-width' );
+
 		return array(
 			'Basic'    => $form_html,
 		);
 
 	} // End get_shortcode_form
+
+
+	/**
+	 * @desc Filter shortcode to include content
+	 * @since 0.0.3
+	 *
+	 * @param array $shortcode Shortcode Array
+	 *
+	 * @return array Modifed shortcode array
+	 */
+	public function cpb_to_shortcode( $shortcode ) {
+
+		if ( 'county_contact_info' === $shortcode['slug'] ) {
+
+			if ( ! empty( $shortcode['atts']['content'] ) ) {
+
+				$shortcode['content'] = $shortcode['atts']['content'];
+
+			} // End if
+		} // End if
+
+		return $shortcode;
+
+	} // End cpb_to_shortcode
+
 
 } // End County_Programs
 
