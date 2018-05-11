@@ -33,6 +33,8 @@ class County_Contact_Shortcode {
 
 			\add_filter( 'cpb_to_shortcode', array( $this, 'cpb_to_shortcode' ) );
 
+			\add_filter( 'cpb_clean_atts', array( $this, 'cpb_clean_atts' ), 10, 3);
+
 		} // End if
 
 	} // End __construct
@@ -156,9 +158,7 @@ class County_Contact_Shortcode {
 
 		$form_html .= $cpb_form->text_field( \CAHNRSWP\Plugin\Pagebuilder\cpb_get_input_name( $id, true, 'map_address' ), $settings['map_address'], 'Map Address' );
 
-		$form_html .= $cpb_form->text_field( \CAHNRSWP\Plugin\Pagebuilder\cpb_get_input_name( $id, true, 'map_address' ), $settings['map_address'], 'Map Address' );
-
-		$form_html .= $cpb_form->textarea_field( \CAHNRSWP\Plugin\Pagebuilder\cpb_get_input_name( $id, true, 'content' ), $settings['content'], 'Additional Content', 'cpb-full-width' );
+		$form_html .= $cpb_form->textarea_field( \CAHNRSWP\Plugin\Pagebuilder\cpb_get_input_name( $id, true, 'content' ), $content, 'Additional Content', 'cpb-full-width' );
 
 		return array(
 			'Basic'    => $form_html,
@@ -189,6 +189,31 @@ class County_Contact_Shortcode {
 		return $shortcode;
 
 	} // End cpb_to_shortcode
+
+
+	/**
+	 * @desc Filter shortcode to include content
+	 * @since 0.0.3
+	 *
+	 * @param array $clean_settings Clean settings to be used in to shortcode method
+	 * @param array $shortcode Shortcode Array
+	 *
+	 * @return array Modifed shortcode array
+	 */
+	public function cpb_clean_atts( $clean_settings, $save_settings, $shortcode ) {
+
+		if ( 'county_contact_info' === $shortcode['slug'] ) {
+
+			if ( ! empty( $save_settings['content'] ) ) {
+
+				$clean_settings['content'] = wp_kses_post( $save_settings['content'] );
+
+			} // End if
+		} // End if
+
+		return $clean_settings;
+
+	} // End cpb_clean_atts
 
 
 } // End County_Programs
