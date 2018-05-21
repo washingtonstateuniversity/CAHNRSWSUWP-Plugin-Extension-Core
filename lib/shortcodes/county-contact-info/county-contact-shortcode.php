@@ -93,21 +93,21 @@ class County_Contact_Shortcode {
 		// Let's just check and make sure this exists first
 		if ( function_exists( 'spine_get_option' ) ) {
 
-			$department = spine_get_option( 'contact_department' );
+			$department = esc_html( spine_get_option( 'contact_department' ) );
 
-			$address = spine_get_option( 'contact_streetAddress' );
+			$address = esc_html( spine_get_option( 'contact_streetAddress' ) );
 
-			$locality = spine_get_option( 'contact_addressLocality' );
+			$locality = esc_html( spine_get_option( 'contact_addressLocality' ) );
 
-			$zip_code = spine_get_option( 'contact_postalCode' );
+			$zip_code = esc_html( spine_get_option( 'contact_postalCode' ) );
 
-			$telephone = spine_get_option( 'contact_telephone' );
+			$telephone = esc_html( spine_get_option( 'contact_telephone' ) );
 
-			$email = spine_get_option( 'contact_email' );
+			$email = esc_html( spine_get_option( 'contact_email' ) );
 
-			$contact_point = spine_get_option( 'contact_ContactPoint' );
+			$contact_point = esc_html( spine_get_option( 'contact_ContactPoint' ) );
 
-			$contact_title = spine_get_option( 'contact_ContactPointTitle' );
+			$contact_title = esc_html( spine_get_option( 'contact_ContactPointTitle' ) );
 
 			if ( ! empty( $atts['show_map'] ) ) {
 
@@ -120,7 +120,7 @@ class County_Contact_Shortcode {
 				$marker_desc = '<div>' . $address . '<br />' . $locality . '<br />' . $zip_code . '</div><div>' . wpautop( wp_kses_post( $content ) ) . '</div>';
 
 				$map_data = array(
-					'address' => ( ! empty( $atts['map_address'] ) ) ? $atts['map_address'] : $map_address,
+					'address' => ( ! empty( $atts['map_address'] ) ) ? esc_html( $atts['map_address'] ) : $map_address,
 					'title'   => esc_html( spine_get_option( 'contact_department' ) ),
 					'desc'    => $marker_desc,
 					//'zoom'    => 15,
