@@ -33,7 +33,7 @@ class County_Contact_Shortcode {
 
 			\add_filter( 'cpb_to_shortcode', array( $this, 'cpb_to_shortcode' ) );
 
-			\add_filter( 'cpb_clean_atts', array( $this, 'cpb_clean_atts' ), 10, 3);
+			\add_filter( 'cpb_clean_atts', array( $this, 'cpb_clean_atts' ), 10, 3 );
 
 		} // End if
 

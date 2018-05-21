@@ -27,7 +27,7 @@ class County_Programs {
 
 		add_action( 'edit_form_after_title', array( $this, 'add_program_info_form' ), 2 );
 
-		add_action( 'cahnrs_ignite_after_title', array( $this, 'add_page_contact'), 10, 1 );
+		add_action( 'cahnrs_ignite_after_title', array( $this, 'add_page_contact' ), 10, 1 );
 
 	} // End __construct
 
