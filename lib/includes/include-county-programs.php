@@ -22,12 +22,11 @@ class County_Programs {
 
 		add_filter( 'template_include', array( $this, 'get_program_template' ) );
 
-		// Add a filter to the save post to inject out template into the page cache
-		//add_filter( 'wp_insert_post_data', array( $this, 'register_program_templates' ), 1 );
-
 		add_action( 'edit_form_after_title', array( $this, 'add_program_info_form' ), 2 );
 
 		add_action( 'cahnrs_ignite_after_title', array( $this, 'add_page_contact' ), 10, 1 );
+
+		add_action( 'save_post_page', array( $this, 'save_program' ), 10, 3 );
 
 	} // End __construct
 
@@ -135,7 +134,7 @@ class County_Programs {
 
 		if ( ! empty( $meta_template ) && 'templates/program.php' === $meta_template ) {
 
-			wp_nonce_field( 'cahnrswp_program_info', 'cahnrswp_program_info_nonce' );
+			wp_nonce_field( 'cec_save_program', 'cec_nonce' );
 
 			$program_icons = array(
 				'4-H' => 'four-h',
@@ -243,6 +242,63 @@ class County_Programs {
 		return $program_contact;
 
 	} // End get_program_contact_array
+
+
+	/**
+	 * Save post action used for program templates
+	 * @since 0.0.3
+	 *
+	 * @param int $post_id WP Post ID
+	 * @param WP_Post
+	 * @param bool Is update
+	 */
+	public function save_program( $post_id, $post, $update ) {
+
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+
+			return;
+
+		} // End if
+
+		if ( ! $update ) {
+
+			return;
+
+		} // End if
+
+		// Check the nonce
+		if ( check_admin_referer( 'cec_save_program', 'cec_nonce' ) ) {
+
+			if ( ! current_user_can( 'edit_page', $post_id ) ) {
+
+				return;
+
+			} // End if
+
+			$fields = array(
+				'_cahnrswp_program_specialist',
+				'_cahnrswp_program_phone',
+				'_cahnrswp_program_email',
+				'_cahnrswp_program_icon',
+			);
+
+			foreach ( $fields as $index => $field ) {
+
+				if ( isset( $_POST[ $field ] ) ) {
+
+					$value = sanitize_text_field( $_POST[ $field ] );
+
+					update_post_meta( $post_id, $field, $value );
+
+				} // End if
+			} // End foreach
+		} else {
+
+			return;
+
+		} // End if
+
+	} // End save_program
 
 
 } // End County_Programs

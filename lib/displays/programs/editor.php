@@ -6,7 +6,7 @@
 		<select id="county-program-icon" name="_cahnrswp_program_icon" class="cahnrswp-program-icon">
 			<option value="">(Icon)</option>
 			<?php foreach ( $program_icons as $name => $url ) : ?>
-				<option value="<?php echo esc_url( $url ); ?>" <?php selected( $program_icon, $url ); ?>><?php echo esc_html( $name ); ?></option>
+				<option value="<?php echo esc_attr( $url ); ?>" <?php selected( $program_icon, $url ); ?>><?php echo esc_html( $name ); ?></option>
 			<?php endforeach; ?>
 		</select>
 	</div>
