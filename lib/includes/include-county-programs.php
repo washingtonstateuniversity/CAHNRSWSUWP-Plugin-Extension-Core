@@ -267,7 +267,7 @@ class County_Programs {
 		} // End if
 
 		// Check the nonce
-		if ( check_admin_referer( 'cec_save_program', 'cec_nonce' ) ) {
+		if ( wp_verify_nonce( $_REQUEST['cec_nonce'], 'cec_save_program' ) ) {
 
 			if ( ! current_user_can( 'edit_page', $post_id ) ) {
 

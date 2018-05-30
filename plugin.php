@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: CAHNRS WSUWP Plugin Extension Core
-Version: 0.0.1
+Version: 0.0.3
 Description: Core feature set for Extension sites.
 Author: washingtonstateuniversity, Danial Bleile
 Author URI: http://cahnrs.wsu.edu/communications/
