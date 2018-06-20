@@ -266,32 +266,39 @@ class County_Programs {
 
 		} // End if
 
-		// Check the nonce
-		if ( wp_verify_nonce( $_REQUEST['cec_nonce'], 'cec_save_program' ) ) {
+		if ( isset( $_REQUEST['cec_nonce'] ) ) {
 
-			if ( ! current_user_can( 'edit_page', $post_id ) ) {
+			// Check the nonce
+			if ( wp_verify_nonce( $_REQUEST['cec_nonce'], 'cec_save_program' ) ) {
+
+				if ( ! current_user_can( 'edit_page', $post_id ) ) {
+
+					return;
+
+				} // End if
+
+				$fields = array(
+					'_cahnrswp_program_specialist',
+					'_cahnrswp_program_phone',
+					'_cahnrswp_program_email',
+					'_cahnrswp_program_icon',
+				);
+
+				foreach ( $fields as $index => $field ) {
+
+					if ( isset( $_POST[ $field ] ) ) {
+
+						$value = sanitize_text_field( $_POST[ $field ] );
+
+						update_post_meta( $post_id, $field, $value );
+
+					} // End if
+				} // End foreach
+			} else {
 
 				return;
 
 			} // End if
-
-			$fields = array(
-				'_cahnrswp_program_specialist',
-				'_cahnrswp_program_phone',
-				'_cahnrswp_program_email',
-				'_cahnrswp_program_icon',
-			);
-
-			foreach ( $fields as $index => $field ) {
-
-				if ( isset( $_POST[ $field ] ) ) {
-
-					$value = sanitize_text_field( $_POST[ $field ] );
-
-					update_post_meta( $post_id, $field, $value );
-
-				} // End if
-			} // End foreach
 		} else {
 
 			return;
