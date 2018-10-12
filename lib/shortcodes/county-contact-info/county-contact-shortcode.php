@@ -111,9 +111,9 @@ class County_Contact_Shortcode {
 
 			if ( ! empty( $atts['show_map'] ) ) {
 
-				wp_enqueue_script( 'google_maps_api', '//maps.googleapis.com/maps/api/js?key=AIzaSyCcTd3MjJf_pv1xZs2KbP2HO8b6K8cQsAg', array(), false, true );
+				wp_enqueue_script( 'google_maps_api', '//maps.googleapis.com/maps/api/js?key=AIzaSyCcTd3MjJf_pv1xZs2KbP2HO8b6K8cQsAg', array(), '0.0.1', false, true );
 
-				wp_enqueue_script( 'google-map-embed', ecore_get_plugin_url( 'lib/js/google-map-embed.js' ), array( 'google_maps_api' ), false, true );
+				wp_enqueue_script( 'google-map-embed', ecore_get_plugin_url( 'lib/js/google-map-embed.js' ), array( 'google_maps_api' ), '0.0.1', false, true );
 
 				$map_address = $address . ' ' . $locality . ' ' . $zip_code;
 
@@ -123,7 +123,6 @@ class County_Contact_Shortcode {
 					'address' => ( ! empty( $atts['map_address'] ) ) ? esc_html( $atts['map_address'] ) : $map_address,
 					'title'   => esc_html( spine_get_option( 'contact_department' ) ),
 					'desc'    => $marker_desc,
-					//'zoom'    => 15,
 				);
 
 				wp_localize_script( 'google-map-embed', 'map_data', $map_data );
