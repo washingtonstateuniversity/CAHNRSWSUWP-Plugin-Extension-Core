@@ -45,19 +45,6 @@ class County_Slideshow_Shortcode {
 
 		\add_shortcode( 'county_slideshow', array( $this, 'get_rendered_shortcode' ) );
 
-		/*$default_atts = apply_filters( 'cpb_shortcode_default_atts', $this->default_settings, array(), 'section' );
-
-		cpb_register_shortcode(
-			'section',
-			$args = array(
-				'form_callback'         => array( $this, 'get_shortcode_form' ),
-				'label'                 => 'County Social Media', // Label of the item
-				'render_callback'       => array( $this, 'get_rendered_shortcode' ), // Callback to render shortcode
-				'default_atts'          => $default_atts,
-				'in_column'             => false, // Allow in column
-			)
-		);*/
-
 	} // End register_shortcode
 
 
